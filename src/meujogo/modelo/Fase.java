@@ -29,6 +29,8 @@ public class Fase extends JPanel implements ActionListener {
     private Image spritesheetExplosao;
     private boolean mostrarAviso = false;
     private Timer avisoTimer;
+    private Som musicaDerrota;
+    private Som musicaVitoria;
 
     public Fase(JFrame frame) {
         this.frame = frame;
@@ -38,11 +40,18 @@ public class Fase extends JPanel implements ActionListener {
 
         setFocusable(true);
         setDoubleBuffered(true);
-
+        musicaVitoria = new Som("res\\Sons\\Vitoria.wav");
+        musicaDerrota = new Som("res\\Sons\\derrota.wav");
         musicaDeFundo = new Som("res\\Sons\\musicaFundo.wav"); // Música de fundo
         somtiro = new Som("res\\Sons\\Somtiro.wav");
         somColisao = new Som("res\\Sons\\SomColisao.wav");
-        musicaDeFundo.playLoop(); // Inicia a música de fundo
+
+
+            musicaDeFundo.playLoop(); // Inicia a música de fundo
+
+
+
+
 
 
         ImageIcon referencia = new ImageIcon("res\\telas\\fundo.png");
@@ -77,15 +86,6 @@ public class Fase extends JPanel implements ActionListener {
 
 
 
-    private void limparRecursos() {
-        limparKeyListeners();
-        if (lixos != null) {
-            lixos.clear();
-        }
-        player = new Player(somtiro); // Reinicializar o player corretamente
-        player.load();
-        removeAll(); // Remove componentes visuais desnecessários
-    }
 
     private void limparKeyListeners() {
         for (KeyListener listener : getKeyListeners()) {
@@ -100,7 +100,7 @@ public class Fase extends JPanel implements ActionListener {
         ImageIcon explosaoIcon = new ImageIcon("res\\modelos\\explosao.png");
         spritesheetExplosao = explosaoIcon.getImage();
 
-        lixos.clear(); 
+        lixos.clear();
 
         for (int i = 0; i < 50; i++) {
             int x = (int) (Math.random() * 8000 + 1024);
@@ -244,6 +244,8 @@ public class Fase extends JPanel implements ActionListener {
         }
 
         if(player.getVida() <= 0){
+            musicaDeFundo.stop();
+            musicaDerrota.play();
             tipo = 1;
             emJogo = false;
             frame.getContentPane().removeAll();
@@ -254,7 +256,9 @@ public class Fase extends JPanel implements ActionListener {
 
         }
 
-        if (lixosDestruídos <= -5) {
+        if (lixosDestruídos <= -10) {
+            musicaDeFundo.stop();
+            musicaDerrota.play();
             tipo = 2;
             emJogo = false;
             frame.getContentPane().removeAll();
@@ -264,6 +268,8 @@ public class Fase extends JPanel implements ActionListener {
             return;
         }
         if(faseAtual > 4){
+            musicaDeFundo.stop();
+            musicaVitoria.play();
             tipo = 3;
             emJogo = false;
             frame.getContentPane().removeAll();

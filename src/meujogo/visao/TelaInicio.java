@@ -1,5 +1,6 @@
 package meujogo.visao;
 
+import meujogo.controle.Som;
 import meujogo.modelo.Fase;
 
 import javax.swing.*;
