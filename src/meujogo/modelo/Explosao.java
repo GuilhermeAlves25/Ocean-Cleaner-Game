@@ -17,7 +17,7 @@ public class Explosao {
         this.frames = cortarFrames(spritesheet, linhas, colunas);
     }
 
-    // Método que corta a spritesheet corretamente
+    //metodo para cortar a spritesheet
     private Image[] cortarFrames(Image spritesheet, int linhas, int colunas) {
         int larguraFrame = spritesheet.getWidth(null) / colunas;
         int alturaFrame = spritesheet.getHeight(null) / linhas;
