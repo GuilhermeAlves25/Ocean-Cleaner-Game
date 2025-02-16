@@ -358,20 +358,22 @@ public class Fase extends JPanel implements ActionListener {
             // Checa colisão com o jogador
             if (formaSub.intersects(formaLixo1) && tempLixo.isVisivel()) {
                 somColisao.play();
-                int explosaoX = tempLixo.getX() + (50 / 2) - 32;
-                int explosaoY = tempLixo.getY() + (50 / 2) - 32 - 10; // Explosão um pouco mais alta
+                int ajusteX = -30;
+                int ajusteY = -70;
+
+                int explosaoX = tempLixo.getX() + ajusteX;
+                int explosaoY = tempLixo.getY() + ajusteY;
                 explosoes.add(new Explosao(explosaoX, explosaoY, spritesheetExplosao, 2, 5));
                 explosoes.add(new Explosao(explosaoX, explosaoY, spritesheetExplosao, 2, 5));
                 player.setVida(player.getVida() - 1);
                 if (lixoCorretoParaDestruir(tempLixo)) {
-                    tempLixo.setVisivel(false);  // Destrói o lixo correto
-                    // Ganha pontos por destruir o lixo correto
+                    tempLixo.setVisivel(false);
                     lixosDestruídos++;
                 } else {
-                    // Se o jogador atingiu um lixo errado
+
                     tempLixo.setVisivel(false);
                     lixosDestruídos--;
-                    // Perde pontos por errar
+
                 }
 
             }
@@ -387,8 +389,11 @@ public class Fase extends JPanel implements ActionListener {
                 formaLixo1 = tempLixo.getBounds();
                 if (formaTiro.intersects(formaLixo1)) {
                     somColisao.play();
-                    int explosaoX = tempLixo.getX() + (50 / 2) - 32;
-                    int explosaoY = tempLixo.getY() + (50 / 2) - 32 - 10; // Explosão um pouco mais alta
+                    int ajusteX = -30;
+                    int ajusteY = -70;
+
+                    int explosaoX = tempLixo.getX() + ajusteX;
+                    int explosaoY = tempLixo.getY() + ajusteY;
                     explosoes.add(new Explosao(explosaoX, explosaoY, spritesheetExplosao, 2, 5));
                     explosoes.add(new Explosao(explosaoX, explosaoY, spritesheetExplosao, 2, 5));
                     if (lixoCorretoParaDestruir(tempLixo)) {
@@ -417,7 +422,7 @@ public class Fase extends JPanel implements ActionListener {
             }
         }
 
-        // Verifica se a quantidade correta de lixos foi destruída
+
         if (lixosDestruídos >= quantidadeCorreta) {
             avancarFase();
         }
