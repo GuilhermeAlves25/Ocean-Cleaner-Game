@@ -68,7 +68,7 @@ public class Fase extends JPanel implements ActionListener {
         inicializaInimigos();
         emJogo = true;
 
-        // Inicializa a imagem do reciclável
+
         atualizarImagemReciclavel();
 
 
@@ -120,12 +120,12 @@ public class Fase extends JPanel implements ActionListener {
     }
 
     public void finalizarJogo() {
-        timer.stop();   // Para o Timer para evitar execução em segundo plano
-        player = null;  // Remove referência ao jogador
-        lixos.clear();  // Limpa a lista de lixos
-        lixos = null;   // Remove a referência para ajudar o Garbage Collector
+        timer.stop();
+        player = null;
+        lixos.clear();
+        lixos = null;
         musicaDeFundo.stop();
-        System.gc();    // Solicita a liberação de memória
+        System.gc();
     }
 
     public void atualizarImagemReciclavel() {
@@ -142,7 +142,7 @@ public class Fase extends JPanel implements ActionListener {
             ImageIcon icon = new ImageIcon("res\\modelos\\Papel.png");
             imagemReciclável = icon.getImage();
         }
-        repaint(); // Forçar a atualização da interface
+        repaint();
     }
 
     public void paint(Graphics g) {
@@ -202,19 +202,19 @@ public class Fase extends JPanel implements ActionListener {
                 mostrarAviso = true;
 
                 if (avisoTimer != null && avisoTimer.isRunning()) {
-                    avisoTimer.stop(); // Garante que o Timer anterior seja interrompido
+                    avisoTimer.stop();
                 }
 
-                avisoTimer = new Timer(5000, new ActionListener() { // Agora com 5 segundos
+                avisoTimer = new Timer(5000, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         mostrarAviso = false;
-                        repaint(); // Garante que a tela seja atualizada para remover o aviso
-                        avisoTimer.stop(); // Para o Timer
+                        repaint();
+                        avisoTimer.stop();
                     }
                 });
 
-                avisoTimer.setRepeats(false); // Executa apenas uma vez
+                avisoTimer.setRepeats(false);
                 avisoTimer.start();
             }
 
@@ -249,7 +249,7 @@ public class Fase extends JPanel implements ActionListener {
             tipo = 1;
             emJogo = false;
             frame.getContentPane().removeAll();
-            frame.setContentPane(new GameOver(frame, this,tipo)); // Passa a referência da fase
+            frame.setContentPane(new GameOver(frame, this,tipo));
             frame.revalidate();
             frame.repaint();
             return;
@@ -262,7 +262,7 @@ public class Fase extends JPanel implements ActionListener {
             tipo = 2;
             emJogo = false;
             frame.getContentPane().removeAll();
-            frame.setContentPane(new GameOver(frame, this,tipo)); // Passa a referência da fase
+            frame.setContentPane(new GameOver(frame, this,tipo));
             frame.revalidate();
             frame.repaint();
             return;
@@ -273,7 +273,7 @@ public class Fase extends JPanel implements ActionListener {
             tipo = 3;
             emJogo = false;
             frame.getContentPane().removeAll();
-            frame.setContentPane(new GameOver(frame, this,tipo)); // Passa a referência da fase
+            frame.setContentPane(new GameOver(frame, this,tipo));
             frame.revalidate();
             frame.repaint();
             return;
@@ -310,11 +310,11 @@ public class Fase extends JPanel implements ActionListener {
             explosoes.get(i).atualizar();
             if (explosoes.get(i).terminou()) {
                 explosoes.remove(i);
-                i--;  // Ajusta o índice após remoção
+                i--;
             }
         }
         checarColisoes();
-        repaint(); // Chama o repaint apenas uma vez
+        repaint();
     }
 
     public void avancarFase() {
@@ -322,35 +322,34 @@ public class Fase extends JPanel implements ActionListener {
         lixosDestruídos = 0;
         quantidadeCorreta+=2;
 
-        // Inicializa os inimigos da nova fase e atualiza a imagem do reciclável
-        inicializaInimigos();
-        atualizarImagemReciclavel();
+            inicializaInimigos();
+            atualizarImagemReciclavel();
 
-        // Garantir atualização gráfica
-        revalidate();
-        repaint();
+                revalidate();
+                 repaint();
     }
 
 
     private boolean lixoCorretoParaDestruir(Lixo lixo) {
         if (faseAtual == 1 && lixo instanceof Garrafa) {
-            return true;  // Fase 1: Destruir apenas garrafas
-        } else if (faseAtual == 2 && lixo instanceof Sacola) {
-            return true;  // Fase 2: Destruir apenas sacolas
-        } else if (faseAtual == 3 && lixo instanceof Latinha) {
-            return true;  // Fase 3: Destruir apenas latas de alumínio
-        } else if(faseAtual == 4 && lixo instanceof Caixa){
-            return true; // Fase 4: destruir apenas caixas de papel
-        }
-        return false;  // Lixo errado para destruir nesta fase
+            return true;
+             } else if (faseAtual == 2 && lixo instanceof Sacola) {
+            return true;
+                 } else if (faseAtual == 3 && lixo instanceof Latinha) {
+            return true;
+                      } else if(faseAtual == 4 && lixo instanceof Caixa){
+            return true;
+                          }
+                            return false;
     }
 
     public void checarColisoes() {
+
         Rectangle formaSub = player.getBounds();
         Rectangle formaLixo1;
         Rectangle formaTiro;
 
-        // Verifica se o lixo colidiu com o jogador
+
         for (int i = 0; i < lixos.size(); i++) {
             Lixo tempLixo = lixos.get(i);
             formaLixo1 = tempLixo.getBounds();
@@ -379,7 +378,7 @@ public class Fase extends JPanel implements ActionListener {
             }
         }
 
-        // Verifica colisão com os tiros
+
         List<Tiro> tiros = player.getTiros();
         for (int j = 0; j < tiros.size(); j++) {
             Tiro tempTiro = tiros.get(j);
